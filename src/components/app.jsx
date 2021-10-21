@@ -11,7 +11,7 @@ class App extends Component {
 
     this.state = {
       gifs: [],
-      selectedGifId: "KO3wDBTl5XRpGIhWSO"
+      selectedGifId: null
     };
   }
 
@@ -27,6 +27,16 @@ class App extends Component {
     });
   }
 
+  clicked = (gif) => {
+    console.log(gif);
+    const key = gif.match(/media\/((.)*[A-Z])\w+/);
+    console.log(key[0].split("/")[1]);
+    const id = key[0].split("/")[1];
+    this.setState({
+      selectedGifId: id
+    });
+  }
+
   render() {
     return (
       <div>
@@ -38,7 +48,7 @@ class App extends Component {
         </div>
 
         <div className="right-scene">
-          <GifList gifs={this.state.gifs} />
+          <GifList gifs={this.state.gifs} clickedFunction={this.clicked} />
         </div>
       </div>
     );
